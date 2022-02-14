@@ -55,6 +55,56 @@
                     }
                 }
             }
+        },
+        {
+            "name": "com.example.actions.play_music",
+            "availability": {
+                "deviceClasses": [
+                    {
+                        "assistantSdkDevice": {}
+                    }
+                ]
+            },
+            "intent": {
+                "name": "com.example.intents.play_music",
+                "parameters": [
+                    {
+                        "name": "song",
+                        "type": "SchemaOrg_Text"
+                    },
+                    {
+                        "name": "artist",
+                        "type": "SchemaOrg_Text"
+                    }
+                ],
+                "trigger": {
+                    "queryPatterns": [
+                        "Faboulous $SchemaOrg_Text:song (by $SchemaOrg_Text:artist)?"
+                    ]
+                }
+            },
+            "fulfillment": {
+                "staticFulfillment": {
+                    "templatedResponse": {
+                        "items": [
+                            {
+                                "simpleResponse": {
+                                    "textToSpeech": "Playing $song"
+                                }
+                            },
+                            {
+                                "deviceExecution": {
+                                    "command": "com.example.commands.play_music",
+                                    "params": {
+                                        "song": "$song",
+                                        "artist": "$artist"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
         }
     ],
     "types": [
